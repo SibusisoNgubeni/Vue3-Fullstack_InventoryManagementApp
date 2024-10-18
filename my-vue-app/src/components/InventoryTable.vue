@@ -35,32 +35,6 @@ const itemDescription = ref('');
 const itemPrice = ref(0);
 const itemQuantity = ref(0);
 
-// Function to open the Add New Item modal
-const openAddModal = () => {
-  showModal.value = true;
-  // Reset item data when opening the modal
-  itemName.value = '';
-  itemDescription.value = '';
-  itemPrice.value = 0;
-  itemQuantity.value = 0;
-};
-
-// Function to close the modal
-const closeModal = () => {
-  showModal.value = false;
-};
-
-// Function to handle adding a new item
-const addItem = () => {
-  const newItem = {
-    name: itemName.value,
-    description: itemDescription.value,
-    price: itemPrice.value,
-    quantity: itemQuantity.value,
-  };
-  emit('addItem', newItem); // Emit event to parent to add item
-  closeModal(); // Close the modal after adding
-};
 </script>
 
 <template>
@@ -68,12 +42,6 @@ const addItem = () => {
     <h1 class="text-3xl font-bold text-center mb-4">Dashboard</h1>
     <p class="text-center text-lg mb-6">Welcome, Lortech!</p>
 
-    <button
-      @click="openAddModal"
-      class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-    >
-      Add New Item
-    </button>
 
     <table class="min-w-full max-w-4xl bg-white shadow-md rounded-lg overflow-hidden mx-auto">
       <thead class="bg-gray-800 text-white">
