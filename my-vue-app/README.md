@@ -1,5 +1,35 @@
-# Vue 3 + Vite
+# Vue 3 + Vite full stack Food inventory app
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# Food Inventory Dashboard
+## Overview
+The Food Inventory Dashboard is a web application that allows users to manage their food inventory. Users can add, edit, and delete food items while viewing the current inventory. The application consists of a Vue.js frontend and an Express.js backend.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Technologies used
+
+### Frontend  
+* Vue-3 with composition API
+
+### Backend
+* Node.js with Express.js framework
+* PostgreSQL as the database
+* Hono.js
+* Drizzle ORM
+* Typescript
+
+ ### Usage
+
+### Frontend Setup
+1. Clone the Repository
+2 .cd my-vue-app
+3. npm install
+4. npm run dev
+
+ ### USERNAME: Lortech
+ ### PASSWORD: Lortech@2024
+
+
+### Backend setup
+1. Clone the Repository
+2. cd server
+3. npm install
+4. npm run dev
