@@ -15,6 +15,7 @@ export interface FoodItem {
     name: string;
     description: string;
     price: number;
+    quantity: number;
 }
 
 /**
@@ -30,15 +31,18 @@ export const getAllFoodItems = async (): Promise<FoodItem[]> => {
         name: foodItems.name,
         description: foodItems.description,
         price: foodItems.price,
+        quantity: foodItems.quantity // Fetch the quantity from the database
     }).from(foodItems).execute();
 
     return items.map(item => ({
         id: item.id,
         name: item.name,
         description: item.description,
-        price: parseFloat(item.price), 
+        price: parseFloat(item.price),
+        quantity: item.quantity // Make sure to return the quantity
     }));
 };
+
 
 /**
  * Creates a new food item in the database.
@@ -50,28 +54,37 @@ export const getAllFoodItems = async (): Promise<FoodItem[]> => {
  * @returns {Promise<FoodItem>} A promise that resolves to the created food item.
  * @throws {Error} If the database insert operation fails.
  */
-export const createFoodItem = async (name: string, description: string, price: number): Promise<FoodItem> => {
+export const createFoodItem = async (
+    name: string, 
+    description: string, 
+    price: number, 
+    quantity: number // Add quantity as a parameter
+): Promise<FoodItem> => {
     const [newItem] = await db.insert(foodItems)
         .values({ 
             name, 
             description, 
-            price: price.toString()
+            price: price.toString(),
+            quantity // Insert the quantity
         })
         .returning({
             id: foodItems.id,
             name: foodItems.name,
             description: foodItems.description,
             price: foodItems.price,
+            quantity: foodItems.quantity // Return the quantity
         })
         .execute();
     
     return {
-        id: Number(newItem.id), 
-        name: String(newItem.name), 
-        description: String(newItem.description), 
-        price: Number(newItem.price), 
+        id: Number(newItem.id),
+        name: String(newItem.name),
+        description: String(newItem.description),
+        price: Number(newItem.price),
+        quantity: Number(newItem.quantity) // Include quantity in the return
     };
 };
+
 
 /**
  * Updates an existing food item in the database.
@@ -84,19 +97,21 @@ export const createFoodItem = async (name: string, description: string, price: n
  * @returns {Promise<FoodItem | null>} A promise that resolves to the updated food item or null if not found.
  * @throws {Error} If the database update operation fails.
  */
-export const updateFoodItem = async (id: number, name: string, description: string, price: number): Promise<FoodItem | null> => {
+export const updateFoodItem = async (id: number, name: string, description: string, price: number, quantity: number): Promise<FoodItem | null> => {
     const [updatedItem] = await db.update(foodItems)
-        .set({ 
+        .set({
             name, 
             description, 
-            price: price.toString() 
-        }) 
+            price: price.toString(), 
+            quantity // Ensure the quantity is being updated in the database
+        })
         .where(eq(foodItems.id, id))
         .returning({
             id: foodItems.id,
             name: foodItems.name,
             description: foodItems.description,
             price: foodItems.price,
+            quantity: foodItems.quantity // Make sure to return the updated quantity
         })
         .execute();
     
@@ -104,9 +119,11 @@ export const updateFoodItem = async (id: number, name: string, description: stri
         id: updatedItem.id,
         name: updatedItem.name,
         description: updatedItem.description,
-        price: parseFloat(updatedItem.price), 
-    } as FoodItem : null; 
+        price: parseFloat(updatedItem.price),
+        quantity: updatedItem.quantity // Return the updated quantity
+    } : null;
 };
+
 
 /**
  * Deletes a food item from the database.
