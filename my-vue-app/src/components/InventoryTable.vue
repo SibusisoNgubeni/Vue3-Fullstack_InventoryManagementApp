@@ -8,7 +8,7 @@ const props = defineProps({
 });
 
 // Define emits for parent communication
-const emit = defineEmits(['editItem', 'deleteItem']);
+const emit = defineEmits(['editItem', 'deleteItem', 'addItem']);
 
 // Functions to emit edit and delete events
 const editItem = (item) => {
@@ -22,7 +22,6 @@ const deleteItem = (item) => {
 // Logout function
 const router = useRouter();
 const logout = () => {
-  // Clear user data if necessary (e.g., from localStorage)
   localStorage.removeItem('user'); 
   router.push('/'); // Redirect to the home (login) page
 };
@@ -30,9 +29,20 @@ const logout = () => {
 // Modal visibility state
 const showModal = ref(false);
 
+// Reactive variables for new item data
+const itemName = ref('');
+const itemDescription = ref('');
+const itemPrice = ref(0);
+const itemQuantity = ref(0);
+
 // Function to open the Add New Item modal
 const openAddModal = () => {
   showModal.value = true;
+  // Reset item data when opening the modal
+  itemName.value = '';
+  itemDescription.value = '';
+  itemPrice.value = 0;
+  itemQuantity.value = 0;
 };
 
 // Function to close the modal
@@ -41,14 +51,20 @@ const closeModal = () => {
 };
 
 // Function to handle adding a new item
-const addItem = (newItem) => {
+const addItem = () => {
+  const newItem = {
+    name: itemName.value,
+    description: itemDescription.value,
+    price: itemPrice.value,
+    quantity: itemQuantity.value,
+  };
   emit('addItem', newItem); // Emit event to parent to add item
   closeModal(); // Close the modal after adding
 };
 </script>
 
 <template>
-  <div class="container mx-auto p-6 w-full h-screen ">
+  <div class="container mx-auto p-6 w-full h-screen">
     <h1 class="text-3xl font-bold text-center mb-4">Dashboard</h1>
     <p class="text-center text-lg mb-6">Welcome, Lortech!</p>
 
@@ -87,11 +103,11 @@ const addItem = (newItem) => {
     <div v-if="showModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div class="bg-white p-6 rounded shadow-lg w-1/3">
         <h2 class="text-2xl font-bold mb-4">Add New Item</h2>
-        <form @submit.prevent="addItem({ name: itemName, description: itemDescription, price: itemPrice, quantity: itemQuantity })">
+        <form @submit.prevent="addItem">
           <input v-model="itemName" placeholder="Item Name" class="border p-2 w-full mb-4" required />
           <input v-model="itemDescription" placeholder="Description" class="border p-2 w-full mb-4" required />
-          <input v-model="itemPrice" type="number" placeholder="Price" class="border p-2 w-full mb-4" required />
-          <input v-model="itemQuantity" type="number" placeholder="Quantity" class="border p-2 w-full mb-4" required />
+          <input v-model.number="itemPrice" type="number" placeholder="Price" class="border p-2 w-full mb-4" required />
+          <input v-model.number="itemQuantity" type="number" placeholder="Quantity" class="border p-2 w-full mb-4" required />
           <div class="flex justify-between">
             <button type="button" @click="closeModal" class="bg-gray-500 text-white py-2 px-4 rounded">Cancel</button>
             <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Add Item</button>
