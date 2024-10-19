@@ -1,12 +1,12 @@
 # Vue 3 + Vite full stack Food inventory app
-==============================================
+
   ## Deployment link:
    
   Vercel: vue3-fullstack-inventory-management-app.vercel.app
 ===============================================
 
 ## Overview
-===============================================
+
 This project is a Vue.js application that allows users to manage their food inventory. Users can add, edit, and delete food items while viewing the current inventory. The application consists of a Vue.js frontend and an Express.js backend with Hono.js and Drizzle ORM.
 
 ## Features
