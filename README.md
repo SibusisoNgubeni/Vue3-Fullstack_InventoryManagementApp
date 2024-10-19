@@ -6,15 +6,15 @@
 ===============================================
 
 ## Overview
-This project is a Vue.js application that allows users to manage their food inventory. Users can add, edit, and delete food items while viewing the current inventory. The application consists of a Vue.js frontend and an Express.js backend with Hono.js and Drizzle ORM.
 ===============================================
+This project is a Vue.js application that allows users to manage their food inventory. Users can add, edit, and delete food items while viewing the current inventory. The application consists of a Vue.js frontend and an Express.js backend with Hono.js and Drizzle ORM.
 
 ## Features
 1. Inventory item listing
 2. Add new inventory item
 3. Edit existing inventory item
 4. Delete existing inventory item
-===============================================
+   
 
 ## Usage
 ### Deployed Application
@@ -145,19 +145,5 @@ I applied the DRY principle to reduce repetitive code and improve maintainabilit
 
 
 
-### Usage
-### Frontend Setup
-1. Clone the Repository
-2 .cd my-vue-app
-3. npm install
-4. npm run dev
 
- ### USERNAME: Lortech
- ### PASSWORD: Lortech@2024
-
-### Backend setup
-1. Clone the Repository
-2. cd server
-3. npm install
-4. npm run dev
 
